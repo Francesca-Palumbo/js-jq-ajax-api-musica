@@ -14,13 +14,18 @@ $(document).ready(function() {
             var album = data.response;
             console.log(album);
 
+            // recupero la struttura html del template di base
             var html_template   = $("#cd-template").html();
+            // preparo la funzione da utilizzare per utilizzare il template
             var template_function = Handlebars.compile(html_template);
 
             // Ciclare quindi i dischi e ottenuti
-            // apro un ciclo for-in  per accedere a tutte le proprietà dell'oggetto
+            // apro un ciclo for  per accedere a tutte le proprietà dell'oggetto
             for (var i = 0; i < album.length ; i++) {
+
                 var album_corrente = album[i];
+
+                // preparo un oggetto con i dati dello studente da inserire nel template
                 var context = {
     					poster: album_corrente.poster,
     					title: album_corrente.title,
@@ -30,20 +35,20 @@ $(document).ready(function() {
     				};
                 console.log(album_corrente.author);
 
+                // tramite handlebars preparo l'html finale con i dati dello studente all'interno
                 var clone_html = template_function(context);
-                $('.cds-container').append(clone_html);
 
+                // appendo in pagina una card con i dati dello studente
+                $('.cds-container').append(clone_html);
+            // for chiuso
             }
+        // chiudo 'success'
         },
 
         'error' : function(){
             console.log('si è verificato un errore');
         }
+    // chiudo ajax chiamata
     });
-
-    // siccome voglio visualizzare la variabile 'album' in pagina, creo una funzione che richiama dall'esterno la risposta ajax
-    function stampa_album(album){
-        // console.log(album);
-        // $('template-cards').append(album);
-    }
+// chiudo (document).ready
 });
