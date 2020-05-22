@@ -10,35 +10,36 @@ $(document).ready(function() {
         'method' : 'GET' ,
         'success' : function(data){
 
+            // recupero i dischi restituiti dall'api. N.B questo è un array
             // creo una variabile per andare a prendere la risposta ajax
-            var album = data.response;
-            console.log(album);
+            var dischi = data.response;
+            console.log(dischi);
 
             // recupero la struttura html del template di base
-            var html_template   = $("#cd-template").html();
+            var html_template = $("#cd-template").html();
             // preparo la funzione da utilizzare per utilizzare il template
             var template_function = Handlebars.compile(html_template);
 
-            // Ciclare quindi i dischi e ottenuti
+            // Ciclare quindi i dischi ottenuti
             // apro un ciclo for  per accedere a tutte le proprietà dell'oggetto
-            for (var i = 0; i < album.length ; i++) {
+            for (var i = 0; i < dischi.length ; i++) {
 
-                var album_corrente = album[i];
+                var disco_corrente = dischi[i];
 
                 // preparo un oggetto con i dati dello studente da inserire nel template
                 var context = {
-    					poster: album_corrente.poster,
-    					title: album_corrente.title,
-    					author: album_corrente.author,
-    					year: album_corrente.year,
-                        genre: album_corrente.genre
+    					poster: disco_corrente.poster,
+    					title: disco_corrente.title,
+    					author: disco_corrente.author,
+    					year: disco_corrente.year,
+                        genre: disco_corrente.genre
     				};
-                console.log(album_corrente.author);
+                console.log(disco_corrente.author);
 
-                // tramite handlebars preparo l'html finale con i dati dello studente all'interno
+                // tramite handlebars preparo l'html finale con i dati dell' album all'interno
                 var clone_html = template_function(context);
 
-                // appendo in pagina una card con i dati dello studente
+                // appendo in pagina 
                 $('.cds-container').append(clone_html);
             // for chiuso
             }
